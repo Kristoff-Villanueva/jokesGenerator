@@ -4,4 +4,13 @@ async function getCategories() {
 	let data = await response.json();
 	return data;
 }
-export { getCategories };
+
+async function getJokes() {
+	let response = await fetch(
+		"https://api.chucknorris.io/jokes/search?query=all"
+	);
+	let data = await response.json();
+	return data.result;
+}
+
+export { getCategories, getJokes };

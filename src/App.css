@@ -1,6 +1,26 @@
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+
+/* * {
+	border: 1px solid red;
+} */
+
 body {
 	display: flex;
 	justify-content: center;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	width: 100vw;
+}
+
+.app {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
 }
 
 .button-categories,
@@ -15,4 +35,35 @@ body {
 
 .view-more {
 	background-color: gray;
+}
+
+.header {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	color: whitesmoke;
+	background: url(./assets/bitmap.png);
+	width: 100vw;
+}
+
+.category {
+	width: 90%;
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
+}
+
+.header > h1 {
+	margin-bottom: 0px;
+}
+
+.search-input {
+	width: 250px;
+	margin-bottom: 20px;
+	height: 1.5em;
+}
+
+.search-input::placeholder {
+	text-align: center;
 }
