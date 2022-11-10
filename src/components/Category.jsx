@@ -9,11 +9,11 @@ function Category(props) {
 	const [buttonElementsLess, setButtonElementsLess] = React.useState([]);
 	const [buttonElementsFull, setButtonElementsFull] = React.useState([]);
 	const [categoriesShowAll, setCategoriesShowAll] = React.useState(false);
-	const [categoryBtn, setCategoryBtn] = React.useState("");
+	const [matchingCategory, setMatchingCategory] = React.useState([]);
+	const [jokesValue, setJokesValue] = React.useState([]);
 
 	React.useEffect(() => {
 		getJokes().then((data) => setAllJokes(data));
-		console.log(allJokes);
 	}, []);
 
 	React.useEffect(() => {
@@ -38,10 +38,30 @@ function Category(props) {
 		});
 		setButtonElementsLess(categoryButtons.slice(0, 6));
 		setButtonElementsFull(categoryButtons);
-	}, [categories]);
+	}, [allJokes]);
+
+	React.useEffect(() => {
+		let allJokesValue = allJokes.map(function (joke) {
+			return joke.value.split(" ");
+		});
+		let matchedValue = allJokesValue.filter(function (joke) {
+			return allJokesValue.indexOf(joke.includes(props.inputText));
+		});
+		// setJokesValue(matchedValue);
+		console.log(matchedValue);
+	}, [props.inputText]);
 
 	function handleCategoryClick(event) {
-		setCategoryBtn(event.target.textContent);
+		let chosenJokes = allJokes.filter(function (joke) {
+			return joke.categories.includes(event.target.textContent);
+		});
+		let final = chosenJokes.map((joke) => (
+			<div className="joke-div" key={joke.value}>
+				<p>{joke.value}</p>
+			</div>
+		));
+		setMatchingCategory(final);
+		console.log(final);
 	}
 
 	function handleClick() {
@@ -50,13 +70,13 @@ function Category(props) {
 
 	return (
 		<div className="category">
-			<div>
+			<div className="category-btn">
 				{categoriesShowAll ? buttonElementsFull : buttonElementsLess}
 				<button className="view-more" onClick={handleClick}>
 					{categoriesShowAll ? "See Less⬆️" : "View More⬇️"}
 				</button>
 			</div>
-			{categoryBtn}
+			<div className="jokes-container">{matchingCategory}</div>
 		</div>
 	);
 }
